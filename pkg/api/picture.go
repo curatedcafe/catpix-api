@@ -18,6 +18,7 @@ const (
 	PicturesRoute        string = "/pictures"
 	PictureExistingRoute string = "/picture/:pictureid"
 	PicturesByUserRoute  string = "/user/:userid/pictures"
+	PicturesCountRoute    string = "/pictures/count"
 )
 
 func HandlePictureCreateRequest(c *gin.Context) {
@@ -239,6 +240,14 @@ func HandlePicturesByUserRequest(c *gin.Context) {
 	return
 }
 
+func HandlePicturesCountRequest(c *gin.Context) {
+	
+
+	c.JSON(http.StatusOK, "derp")
+
+	return
+}
+
 func AddPictureRoutes(r *gin.Engine, authMiddleware *jwt.GinJWTMiddleware) *gin.Engine {
 	// Unprotected routes
 	r.GET(PictureExistingRoute, HandlePictureRequest)
@@ -253,6 +262,7 @@ func AddPictureRoutes(r *gin.Engine, authMiddleware *jwt.GinJWTMiddleware) *gin.
 		auth.POST(PictureRoute, HandlePictureCreateRequest)
 		auth.DELETE(PictureExistingRoute, HandlePictureDeleteRequest)
 		auth.PUT(PictureExistingRoute, HandlePictureUpdateRequest)
+		auth.GET(PicturesCountRoute, HandlePicturesCountRequest)
 	}
 
 	return r
